@@ -1,0 +1,13 @@
+.note-list {
+    width: 60%;
+    float: right;
+    margin-right: 10%;
+}
+
+.note-list ul {
+    list-style: none;
+}
+
+.note-list li {
+    border: 1px solid black;
+}

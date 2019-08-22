@@ -1,0 +1,17 @@
+.nav-side {
+    width: 30%;
+    float: left;
+}
+
+.nav-side ul {
+    list-style: none;
+}
+
+.nav-side li {
+    overflow: auto;
+    border: 1px solid black
+}
+
+.active {
+    background: red;
+}
