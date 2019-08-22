@@ -6,7 +6,7 @@ export default class Folders extends React.Component {
   render() {
     const folders = this.props.folders.map(folder => 
        
-        <li key={folder.id}><NavLink to={`/folders/${folder.id}/`} >{folder.name}</NavLink></li>
+        <li key={folder.id}><NavLink className="Nav__folder-link" to={`/folders/${folder.id}/`} >{folder.name}</NavLink></li>
           
    );
 
