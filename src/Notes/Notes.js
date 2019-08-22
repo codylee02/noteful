@@ -35,7 +35,6 @@ export default class Notes extends React.Component {
           );
         });
 
-
     return (
       <section className="note-list">
         <ul>

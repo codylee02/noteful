@@ -1,22 +1,20 @@
 .note-list {
-    width: 60%;
-    float: right;
-    margin-right: 10%;
-    
+  width: 60%;
+  float: right;
+  margin-right: 10%;
 }
 
 .note-list ul {
-    list-style: none;
+  list-style: none;
 }
 
 .note-list li {
-    border: 1px solid black;
-    text-align: left;
-    padding: 10px;
-    margin: 10px;
+  border: 1px solid black;
+  text-align: left;
+  padding: 10px;
+  margin: 10px;
 }
 
 .delete-button {
-   float: right;
-    
+  float: right;
 }

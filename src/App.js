@@ -3,7 +3,7 @@ import "./App.css";
 import Header from "./Header/Header";
 import Folders from "./Folders/Folders";
 import Notes from "./Notes/Notes";
-import SpecificNote from './SpecificNote/SpecificNote';
+import SpecificNote from "./SpecificNote/SpecificNote";
 import "./dummy-store.js";
 import dummyStore from "./dummy-store.js";
 
@@ -38,15 +38,8 @@ export default class App extends React.Component {
             </>
           )}
         />
-         <Route
-            path="/folders/:folderId"
-            component={Notes}
-
-            />
-        <Route
-          path='/note/:cardId'
-          component={SpecificNote}
-          />
+        <Route path="/folders/:folderId" component={Notes} />
+        <Route path="/note/:cardId" component={SpecificNote} />
       </main>
     );
   }
