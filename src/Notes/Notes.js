@@ -15,7 +15,7 @@ export default class Notes extends React.Component {
         const folderId = this.props.match 
         ? foundCards.map(card => {
             return (<li key={card.id}><Link to={`/note/${card.id}`}><h2>{card.name}</h2></Link>
-            <p>{card.folderId}</p>
+            <p>Date Modified: {card.modified}</p>
             <button>Delete Note</button></li>)
         }) 
         : this
@@ -25,7 +25,7 @@ export default class Notes extends React.Component {
          return(   <li key={card.id}>
              
                 <Link to={`/note/${card.id}`}><h2>{card.name}</h2></Link>
-                <p>{card.folderId}</p>
+                <p>Date Modified: {card.modified}</p>
                 <button>Delete Note</button>
                 
             </li>)
