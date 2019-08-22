@@ -1,0 +1,24 @@
+.selectedNote {
+  border: 1px solid black;
+  text-align: left;
+  padding: 10px;
+  margin: 10px;
+  list-style: none;
+}
+
+.note {
+  width: 60%;
+  float: right;
+  margin-right: 10%;
+}
+
+.selectedNote-content {
+  text-align: left;
+  float: left;
+  padding: 10px;
+}
+
+.selectedNote-sidebar {
+  width: 30%;
+  margin-top: 20px;
+}
