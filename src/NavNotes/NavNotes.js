@@ -1,14 +1,17 @@
 import React from "react";
-import "./Notes.css";
+import "../Notes/Notes.css";
 import { Link } from "react-router-dom";
 import NotefulContext from "../NotefulContext";
 
-export default class Notes extends React.Component {
+export default class NavNotes extends React.Component {
   static contextType = NotefulContext;
 
   render() {
+    const foundCards = this.context.noteStore.notes.filter(
+      note => note.folderId === this.props.match.params.folderId
+    );
 
-    const notes = this.context.noteStore.notes.map(card => {
+    const folderId = foundCards.map(card => {
       return (
         <li key={card.id}>
           <Link to={`/note/${card.id}`}>
@@ -20,11 +23,10 @@ export default class Notes extends React.Component {
       );
     });
 
-    
     return (
       <section className="note-list">
         <ul>
-          {notes}
+          {folderId}
           <button>Add Note</button>
         </ul>
       </section>

@@ -1,14 +1,18 @@
 import React from "react";
-import dummyStore from "../dummy-store";
+
 import "./SpecificNote.css";
 
+import NotefulContext from '../NotefulContext';
+
 export default class SpecificNote extends React.Component {
+  static contextType = NotefulContext;
+
   render() {
     const selectedCardId = this.props.match.params.cardId;
 
-    const selectedCard = dummyStore.notes.find(c => c.id === selectedCardId);
+    const selectedCard = this.context.noteStore.notes.find(c => c.id === selectedCardId);
 
-    const selectedCardFolderId = dummyStore.folders.find(
+    const selectedCardFolderId = this.context.noteStore.folders.find(
       c => c.id === selectedCard.folderId
     );
 
