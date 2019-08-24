@@ -1,11 +1,33 @@
 import React from "react";
-
 import "./SpecificNote.css";
 
 import NotefulContext from "../NotefulContext";
 
 export default class SpecificNote extends React.Component {
   static contextType = NotefulContext;
+
+  handleClickDelete = (cardId, callback) => {
+    fetch(`http://localhost:9090/notes/${cardId}`, {
+      method: "DELETE",
+      header: {
+        "content-type": "application/json"
+      }
+    })
+      .then(res => {
+        if (!res.ok) return res.json().then(e => Promise.reject(e));
+        return res.json();
+      })
+      .then(() => {
+        this.props.history.push("/");
+      })
+      .then(() => {
+        this.context.deleteNote(cardId);
+      })
+
+      .catch(error => {
+        console.error();
+      });
+  };
 
   render() {
     const selectedCardId = this.props.match.params.cardId;
