@@ -2,7 +2,7 @@ import React from "react";
 
 import "./SpecificNote.css";
 
-import NotefulContext from '../NotefulContext';
+import NotefulContext from "../NotefulContext";
 
 export default class SpecificNote extends React.Component {
   static contextType = NotefulContext;
@@ -10,7 +10,9 @@ export default class SpecificNote extends React.Component {
   render() {
     const selectedCardId = this.props.match.params.cardId;
 
-    const selectedCard = this.context.noteStore.notes.find(c => c.id === selectedCardId);
+    const selectedCard = this.context.noteStore.notes.find(
+      c => c.id === selectedCardId
+    );
 
     const selectedCardFolderId = this.context.noteStore.folders.find(
       c => c.id === selectedCard.folderId
@@ -21,7 +23,14 @@ export default class SpecificNote extends React.Component {
         <li key={selectedCard.id} className="selectedNote">
           <h2>{selectedCard.name}</h2>
 
-          <button className="delete-button">Delete Note</button>
+          <button
+            className="delete-button"
+            onClick={() => {
+              this.handleClickDelete(selectedCard.id);
+            }}
+          >
+            Delete Note
+          </button>
           <p>Date Modified: {selectedCard.modified}</p>
         </li>
 
