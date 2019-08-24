@@ -33,11 +33,11 @@ export default class SpecificNote extends React.Component {
     const selectedCardId = this.props.match.params.cardId;
 
     const selectedCard = this.context.noteStore.notes.find(
-      c => c.id === selectedCardId
+      note => note.id === selectedCardId
     );
 
     const selectedCardFolderId = this.context.noteStore.folders.find(
-      c => c.id === selectedCard.folderId
+      folder => folder.id === selectedCard.folderId
     );
 
     const note = (
