@@ -56,17 +56,18 @@ export default class App extends React.Component {
       deleteNote: this.deleteNote
     };
     return (
-      <main className="App">
+      <>
         <NotefulContext.Provider value={contextValue}>
           <Route path="/" component={Header} />
-          <Route exact path="/" component={Folders} />
-          <Route exact path="/" component={Notes} />
-
-          <Route path="/folders" component={Folders} />
-          <Route path="/folders/:folderId" component={NavNotes} />
-          <Route path="/note/:cardId" component={SpecificNote} />
+          <main className="App">
+            <Route exact path="/" component={Folders} />
+            <Route exact path="/" component={Notes} />
+            <Route path="/folders" component={Folders} />
+            <Route path="/folders/:folderId" component={NavNotes} />
+            <Route path="/note/:cardId" component={SpecificNote} />
+          </main>
         </NotefulContext.Provider>
-      </main>
+      </>
     );
   }
 }
