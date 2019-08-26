@@ -20,7 +20,7 @@ export default class Folders extends React.Component {
       <nav className="nav-side">
         <ul>
           {folders}
-          <li key="newFolder"><Link to={'/new-folder'}>Add New Folder</Link></li>
+          <li key="newFolder" ><Link to={'/new-folder'} className="Nav__folder-link">Add New Folder</Link></li>
         </ul>
       </nav>
     );
