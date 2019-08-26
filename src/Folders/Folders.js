@@ -1,5 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+
 import NotefulContext from "../NotefulContext";
 import "./Folders.css";
 
@@ -19,7 +20,7 @@ export default class Folders extends React.Component {
       <nav className="nav-side">
         <ul>
           {folders}
-          <li key="newFolder">+ New Folder</li>
+          <li key="newFolder"><Link to={'/new-folder'}>Add New Folder</Link></li>
         </ul>
       </nav>
     );
