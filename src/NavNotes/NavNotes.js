@@ -53,7 +53,7 @@ export default class NavNotes extends React.Component {
       <section className="note-list">
         <ul>
           {folderId}
-          <button>Add Note</button>
+          <button><Link to={'/new-note'}>Add Note</Link></button>
         </ul>
       </section>
     );

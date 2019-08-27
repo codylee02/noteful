@@ -1,5 +1,5 @@
 import React from "react";
-import ValidationError from './ValidationError'
+import ValidationError from '../ValidationError/ValidationError'
 import NotefulContext from '../NotefulContext';
 //Add error handling
 //don't accept empty strings.

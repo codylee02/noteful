@@ -6,7 +6,9 @@ import Notes from "./Notes/Notes";
 import NavNotes from "./NavNotes/NavNotes";
 import SpecificNote from "./SpecificNote/SpecificNote";
 import AddFolder from "./AddFolder/AddFolder"
+import AddNote from "./AddNote/AddNote";
 import NotefulContext from "./NotefulContext";
+
 
 import { Route } from "react-router-dom";
 
@@ -33,14 +35,19 @@ export default class App extends React.Component {
   };
 
   addFolder = folder => {
-    const sameNotes = this.state.noteStore.notes
-    const newFolders = this.state.noteStore.folders;
-    newFolders.push(folder)
-    
     this.setState({
       noteStore: {
-        notes: sameNotes, 
-        folders: newFolders
+        folders: [...this.state.noteStore.folders, folder],
+        notes: [...this.state.noteStore.notes]
+      }
+    })
+  }
+
+  addNote = note => {
+    this.setState({
+      noteStore: {
+        folders: [...this.state.noteStore.folders],
+        notes: [...this.state.noteStore.notes, note]
       }
     })
   }
@@ -68,7 +75,8 @@ export default class App extends React.Component {
     const contextValue = {
       noteStore: this.state.noteStore,
       deleteNote: this.deleteNote,
-      addFolder: this.addFolder
+      addFolder: this.addFolder,
+      addNote: this.addNote
     };
     return (
       <>
@@ -81,6 +89,7 @@ export default class App extends React.Component {
             <Route path="/folders/:folderId" component={NavNotes} />
             <Route path="/note/:cardId" component={SpecificNote} />
             <Route exact path = "/new-folder" component={AddFolder}/>
+            <Route exact path = "/new-note" component={AddNote}/>
           </main>
         </NotefulContext.Provider>
       </>
