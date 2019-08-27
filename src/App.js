@@ -64,7 +64,7 @@ export default class App extends React.Component {
             <Route exact path="/" component={Notes} />
             <Route path="/folders" component={Folders} />
             <Route path="/folders/:folderId" component={NavNotes} />
-            <Route path="/note/:cardId" component={SpecificNote} />
+            <Route exact path="/note/:cardId" component={SpecificNote} />
           </main>
         </NotefulContext.Provider>
       </>
