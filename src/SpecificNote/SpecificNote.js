@@ -30,14 +30,14 @@ export default class SpecificNote extends React.Component {
   };
 
   render() {
-    const selectedCardId = this.props.match.params.cardId;
-    const selectedCard = this.context.noteStore.notes.find(
+    const selectedCardId = this.props.match ? this.props.match.params.cardId : "";
+    const selectedCard = this.context.noteStore.notes ? (this.context.noteStore.notes.find(
       note => note.id === selectedCardId
-    );
+    )): "";
 
-    const selectedCardFolderId = this.context.noteStore.folders.find(
-      folder => folder.id === (selectedCard || {}).folderId
-    );
+    const selectedCardFolderId = this.context.noteStore.folders ? (this.context.noteStore.folders.find(
+      folder => folder.id === selectedCard.folderId
+    )) : "";
 
     const note = (
       <>
@@ -62,7 +62,7 @@ export default class SpecificNote extends React.Component {
     return (
       <>
         <section className="note">
-          <ul>{note || {}}</ul>
+          <ul>{note}</ul>
         </section>
 
         <div className="selectedNote-sidebar">
