@@ -25,30 +25,34 @@ export default class Notes extends React.Component {
   };
 
   render() {
-    const notes = this.context.noteStore.notes ? (this.context.noteStore.notes.map(card => {
-      return (
-        <li key={card.id}>
-          <Link to={`/note/${card.id}`}>
-            <h2>{card.name}</h2>
-          </Link>
-          <button
-            className="delete-button"
-            onClick={() => {
-              this.handleClickDelete(card.id);
-            }}
-          >
-            Delete Note
-          </button>
-          <p>Date Modified: {card.modified}</p>
-        </li>
-      );
-    })): "";
+    const notes = this.context.noteStore.notes
+      ? this.context.noteStore.notes.map(card => {
+          return (
+            <li key={card.id}>
+              <Link to={`/note/${card.id}`}>
+                <h2>{card.name}</h2>
+              </Link>
+              <button
+                className="delete-button"
+                onClick={() => {
+                  this.handleClickDelete(card.id);
+                }}
+              >
+                Delete Note
+              </button>
+              <p>Date Modified: {card.modified}</p>
+            </li>
+          );
+        })
+      : "";
 
     return (
       <section className="note-list">
         <ul>
           {notes}
-          <button><Link to={'/new-note'}>Add Note</Link></button>
+          <button>
+            <Link to={"/new-note"}>Add Note</Link>
+          </button>
         </ul>
       </section>
     );
