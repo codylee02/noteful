@@ -1,112 +1,88 @@
 import React from "react";
-import ValidationError from '../ValidationError/ValidationError';
-import NotefulContext from '../NotefulContext';
+import ValidationError from "../ValidationError/ValidationError";
+import NotefulContext from "../NotefulContext";
 
 export default class AddNote extends React.Component {
+  static contextType = NotefulContext;
 
-    static contextType = NotefulContext;
-    
-    
-    
-    constructor(props) {
-        super(props);
-        this.newNoteTitleInput = React.createRef()
-        this.newNoteContentInput = React.createRef()
-        this.newNoteFolderInput = React.createRef()
-        this.state = {
-            newNoteTitle: '',
-            newNoteFolder: '',
-            newNoteContent: ''
-        }
-    }
-  //get name, content, and select a folder
-  //validation to make sure that note is note blank
-  //folder selected from a list of existing folders (get it from state?)
-  //proper error handling...
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: "",
+      folderId: "",
+      content: ""
+    };
+  }
+
   handleSubmit = event => {
     event.preventDefault();
-    
-    const newNote = {
-        "id": 7,
-        "name": this.state.newNoteTitle,
-        "modified": new Date(),
-        "folderId": this.state.newNoteFolder,
-        "content": this.state.newNoteContent
-    }
+    const note = {
+      id: Math.random(),
+      name: this.state.name,
+      modified: new Date(),
+      folderId: this.state.folderId,
+      content: this.state.content
+    };
 
     fetch(`http://localhost:9090/notes/`, {
-        method: 'POST',
-        body: JSON.stringify(newNote),
-        headers: {
-            'content-type': 'application/json',
+      method: "POST",
+      body: JSON.stringify(note),
+      headers: {
+        "content-type": "application/json"
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(error => {
+            throw error;
+          });
         }
-    })
-    .then(res => {
-        if(!res.ok) {
-            return res.json().then(error => {
-                throw error
-            })
-        }
-            return res.json()
-        
-    })
-    .then(data => {
-        this.context.addNote(data)
-    })
-    .then(this.props.history.goBack())
-    
+        return res.json();
+      })
+      .then(data => {
+        this.context.addNote(data);
+      })
+      .then(this.props.history.goBack());
   };
 
-  validateNewNoteTitle(){
-      //validation stuff
-      const newNoteTitle = this.state.newNoteTitle.trim();
-      if (newNoteTitle.length === 0) {
-          return `Note's title cannot be blank`
-      }
-  }
-
-  validateNewNoteContent() {
-      const newNoteFolder = this.state.newNoteFolder.trim()
-      if(newNoteFolder.length === 0) {
-          return `Note's folder cannot be blank`
-      }
-
-  }
-
-  validateNewNoteFolder() {
-    const newNoteContent = this.state.newNoteContent.trim()
-    if(newNoteContent.length === 0) {
-        return `Note's content cannot be blank`
+  validateName() {
+    const name = this.state.name.trim();
+    if (name.length === 0) {
+      return `Note's title cannot be blank`;
     }
   }
 
-  updateNewNoteTitle(title) {
-      this.setState({
-          newNoteTitle: title
-      })
+  validateFolderId() {
+    const folderId = this.state.folderId.trim();
+    if (folderId.length === 0) {
+      return `Note's folder cannot be blank`;
+    }
   }
 
-  updateNewNoteContent(content) {
+  validateContent() {
+    const content = this.state.content.trim();
+    if (content.length === 0) {
+      return `Note's content cannot be blank`;
+    }
+  }
+
+  updateInput(value, input) {
     this.setState({
-        newNoteContent: content
-    })
-
-  }
-
-  updateNewNoteFolder(folder) {
-      this.setState({
-          newNoteFolder: folder
-      })
+      [input]: value
+    });
   }
 
   handleClickCancel = () => {
-      this.props.history.goBack();
-  }
+    this.props.history.goBack();
+  };
 
   render() {
-    const folderOptions = this.context.noteStore.folders.map(folder => <option value={folder.id} key={folder.id}>{folder.name}</option>
-
-    )
+    const folderOptions = this.context.noteStore.folders.map(folder => (
+      <option value={folder.id} key={folder.id}>
+        {folder.name}
+      </option>
+    ));
 
     return (
       <>
@@ -115,45 +91,46 @@ export default class AddNote extends React.Component {
           <label htmlFor="title">Title:</label>{" "}
           <input
             type="text"
-            name="title"
-            id="title"
-            ref={this.titleInput}
+            name="name"
+            id="name"
             placeholder="ex: My New Note"
-            onChange={e => this.updateNewNoteTitle(e.target.value)}
+            onChange={e => this.updateInput(e.target.value, "name")}
             required
-          />
-          {' '}
-          <label htmlFor="folder">Folder:</label>
-          {" "}
-          <select id="folder" name="folder"
-          onChange={e => this.updateNewNoteFolder(e.target.value)}>
-              <option value="">Select a folder</option>
-              {folderOptions}
+          />{" "}
+          <label htmlFor="folder">Folder:</label>{" "}
+          <select
+            id="folder"
+            name="folder"
+            onChange={e => this.updateInput(e.target.value, "folderId")}
+          >
+            <option value="">Select a folder</option>
+            {folderOptions}
           </select>
           <div className="AddNote__form-content">
-              <label htmlFor="content">Content:</label>
-              {' '}
-              <textarea
-              name='content'
-              id='content'
-              onChange={e => this.updateNewNoteContent(e.target.value)}
+            <label htmlFor="content">Content:</label>{" "}
+            <textarea
+              name="content"
+              id="content"
+              onChange={e => this.updateInput(e.target.value, "content")}
             />
-          </div>
-          {' '}
+          </div>{" "}
           <button type="button" onClick={this.handleClickCancel}>
             Cancel
+          </button>{" "}
+          <button
+            type="submit"
+            disabled={
+              this.validateName() ||
+              this.validateFolderId() ||
+              this.validateContent()
+            }
+          >
+            Save
           </button>
-          {' '}
-          <button type="submit"
-          disabled={
-              this.validateNewNoteTitle() ||
-              this.validateNewNoteFolder()||
-              this.validateNewNoteContent() }>Save</button>
         </form>
-        <ValidationError message={this.validateNewNoteTitle()} />
-        <ValidationError message={this.validateNewNoteFolder()} />
-        <ValidationError message={this.validateNewNoteContent()} />
-        
+        <ValidationError message={this.validateName()} />
+        <ValidationError message={this.validateFolderId()} />
+        <ValidationError message={this.validateContent()} />
       </>
     );
   }
