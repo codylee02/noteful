@@ -2,12 +2,10 @@ import React from "react";
 import ValidationError from "../ValidationError/ValidationError";
 import NotefulContext from "../NotefulContext";
 
-
 export default class AddFolder extends React.Component {
   static contextType = NotefulContext;
   constructor(props) {
     super(props);
-    this.folderInput = React.createRef();
     this.state = {
       newFolder: ""
     };
@@ -71,7 +69,6 @@ export default class AddFolder extends React.Component {
             type="text"
             name="folder"
             id="folder"
-            ref={this.folderInput}
             placeholder="ex: New Folder 123"
             onChange={e => this.updateFolder(e.target.value)}
             required
