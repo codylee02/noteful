@@ -78,11 +78,13 @@ export default class AddNote extends React.Component {
   };
 
   render() {
-    const folderOptions = this.context.noteStore.folders.map(folder => (
-      <option value={folder.id} key={folder.id}>
-        {folder.name}
-      </option>
-    ));
+    const folderOptions = this.context.noteStore.folders
+      ? this.context.noteStore.folders.map(folder => (
+          <option value={folder.id} key={folder.id}>
+            {folder.name}
+          </option>
+        ))
+      : "";
 
     return (
       <>
