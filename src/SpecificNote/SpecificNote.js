@@ -40,6 +40,10 @@ export default class SpecificNote extends React.Component {
       folder => folder.id === selectedCard.folderId
     );
 
+    console.log("selectedCardId", selectedCardId)
+    console.log("selectedCard", selectedCard)
+    console.log("selectedCardFolderId", selectedCardFolderId)
+
     const note = (
       <>
         <li key={selectedCard.id} className="selectedNote">
@@ -59,6 +63,8 @@ export default class SpecificNote extends React.Component {
         <p className="selectedNote-content">{selectedCard.content}</p>
       </>
     );
+
+    
 
     return (
       <>
