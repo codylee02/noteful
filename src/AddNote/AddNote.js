@@ -43,7 +43,7 @@ export default class AddNote extends React.Component {
       .then(data => {
         this.context.addNote(data);
         this.props.history.goBack();
-      })
+      });
   };
 
   validateName() {
