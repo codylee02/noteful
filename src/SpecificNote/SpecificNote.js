@@ -31,13 +31,12 @@ export default class SpecificNote extends React.Component {
 
   render() {
     const selectedCardId = this.props.match.params.cardId;
-
     const selectedCard = this.context.noteStore.notes.find(
       note => note.id === selectedCardId
     );
 
     const selectedCardFolderId = this.context.noteStore.folders.find(
-      folder => folder.id === selectedCard.folderId
+      folder => folder.id === (selectedCard || {}).folderId
     );
 
     const note = (
@@ -59,7 +58,7 @@ export default class SpecificNote extends React.Component {
         <p className="selectedNote-content">{(selectedCard || {}).content}</p>
       </>
     );
-console.log(selectedCardId)
+    
     return (
       <>
         <section className="note">
