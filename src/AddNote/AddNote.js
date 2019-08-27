@@ -18,7 +18,7 @@ export default class AddNote extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     const note = {
-      id: Math.random(),
+      id: Math.floor(Math.random() * (999999999999 - 1) + 1).toString(),
       name: this.state.name,
       modified: new Date(),
       folderId: this.state.folderId,
