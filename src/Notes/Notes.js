@@ -25,7 +25,7 @@ export default class Notes extends React.Component {
   };
 
   render() {
-    const notes = this.context.noteStore.notes.map(card => {
+    const notes = this.context.noteStore.notes ? (this.context.noteStore.notes.map(card => {
       return (
         <li key={card.id}>
           <Link to={`/note/${card.id}`}>
@@ -42,7 +42,7 @@ export default class Notes extends React.Component {
           <p>Date Modified: {card.modified}</p>
         </li>
       );
-    });
+    })): "";
 
     return (
       <section className="note-list">
