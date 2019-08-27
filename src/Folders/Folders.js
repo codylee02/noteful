@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 
 import NotefulContext from "../NotefulContext";
+
 import "./Folders.css";
 
 export default class Folders extends React.Component {
@@ -20,7 +21,11 @@ export default class Folders extends React.Component {
       <nav className="nav-side">
         <ul>
           {folders}
-          <li key="newFolder" ><Link to={'/new-folder'} className="Nav__folder-link">Add New Folder</Link></li>
+          <li key="newFolder">
+            <Link to={"/new-folder"} className="Nav__folder-link">
+              Add New Folder
+            </Link>
+          </li>
         </ul>
       </nav>
     );
