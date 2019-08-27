@@ -9,13 +9,15 @@ export default class Folders extends React.Component {
   static contextType = NotefulContext;
 
   render() {
-    const folders = this.context.noteStore.folders.map(folder => (
-      <li key={folder.id}>
-        <NavLink className="Nav__folder-link" to={`/folders/${folder.id}/`}>
-          {folder.name}
-        </NavLink>
-      </li>
-    ));
+    const folders = this.context.noteStore.folders
+      ? this.context.noteStore.folders.map(folder => (
+          <li key={folder.id}>
+            <NavLink className="Nav__folder-link" to={`/folders/${folder.id}/`}>
+              {folder.name}
+            </NavLink>
+          </li>
+        ))
+      : "";
 
     return (
       <nav className="nav-side">
