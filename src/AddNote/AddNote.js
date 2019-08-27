@@ -20,7 +20,7 @@ export default class AddNote extends React.Component {
     const note = {
       id: Math.floor(Math.random() * (999999999999 - 1) + 1).toString(),
       name: this.state.name,
-      modified: new Date(),
+      modified: new Date().toISOString(),
       folderId: this.state.folderId,
       content: this.state.content
     };
