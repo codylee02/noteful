@@ -22,7 +22,7 @@ class NotefulError extends React.Component {
             
                 );
         }
-        return this.props.children
+        return this.props.children ? this.props.children : <></>
     }
 }
 
