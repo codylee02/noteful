@@ -5,7 +5,10 @@ import Folders from "./Folders/Folders";
 import Notes from "./Notes/Notes";
 import NavNotes from "./NavNotes/NavNotes";
 import SpecificNote from "./SpecificNote/SpecificNote";
+import AddFolder from "./AddFolder/AddFolder";
+import AddNote from "./AddNote/AddNote";
 import NotefulContext from "./NotefulContext";
+import NotefulError from "./NotefulError/NotefulError";
 
 import { Route } from "react-router-dom";
 
@@ -27,6 +30,24 @@ export default class App extends React.Component {
       noteStore: {
         notes: newNotes,
         folders: sameFolders
+      }
+    });
+  };
+
+  addFolder = folder => {
+    this.setState({
+      noteStore: {
+        folders: [...this.state.noteStore.folders, folder],
+        notes: [...this.state.noteStore.notes]
+      }
+    });
+  };
+
+  addNote = note => {
+    this.setState({
+      noteStore: {
+        folders: [...this.state.noteStore.folders],
+        notes: [...this.state.noteStore.notes, note]
       }
     });
   };
@@ -53,7 +74,9 @@ export default class App extends React.Component {
   render() {
     const contextValue = {
       noteStore: this.state.noteStore,
-      deleteNote: this.deleteNote
+      deleteNote: this.deleteNote,
+      addFolder: this.addFolder,
+      addNote: this.addNote
     };
     return (
       <>
@@ -63,8 +86,14 @@ export default class App extends React.Component {
             <Route exact path="/" component={Folders} />
             <Route exact path="/" component={Notes} />
             <Route path="/folders" component={Folders} />
-            <Route path="/folders/:folderId" component={NavNotes} />
-            <Route exact path="/note/:cardId" component={SpecificNote} />
+            <NotefulError>
+              <Route path="/folders/:folderId" component={NavNotes} />
+            </NotefulError>
+            <NotefulError>
+              <Route path="/note/:cardId" component={SpecificNote} />
+            </NotefulError>
+            <Route exact path="/new-folder" component={AddFolder} />
+            <Route exact path="/new-note" component={AddNote} />
           </main>
         </NotefulContext.Provider>
       </>

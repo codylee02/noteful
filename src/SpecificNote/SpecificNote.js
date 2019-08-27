@@ -30,15 +30,18 @@ export default class SpecificNote extends React.Component {
   };
 
   render() {
-    const selectedCardId = this.props.match.params.cardId;
+    const selectedCardId = this.props.match
+      ? this.props.match.params.cardId
+      : "";
+    const selectedCard = this.context.noteStore.notes
+      ? this.context.noteStore.notes.find(note => note.id === selectedCardId)
+      : "";
 
-    const selectedCard = this.context.noteStore.notes.find(
-      note => note.id === selectedCardId
-    );
-
-    const selectedCardFolderId = this.context.noteStore.folders.find(
-      folder => folder.id === selectedCard.folderId
-    );
+    const selectedCardFolderId = this.context.noteStore.folders
+      ? this.context.noteStore.folders.find(
+          folder => folder.id === selectedCard.folderId
+        )
+      : "";
 
     console.log("selectedCardId", selectedCardId)
     console.log("selectedCard", selectedCard)
@@ -46,8 +49,8 @@ export default class SpecificNote extends React.Component {
 
     const note = (
       <>
-        <li key={selectedCard.id} className="selectedNote">
-          <h2>{selectedCard.name}</h2>
+        <li key={(selectedCard || {}).id} className="selectedNote">
+          <h2>{(selectedCard || {}).name}</h2>
 
           <button
             className="delete-button"
@@ -57,10 +60,10 @@ export default class SpecificNote extends React.Component {
           >
             Delete Note
           </button>
-          <p>Date Modified: {selectedCard.modified}</p>
+          <p>Date Modified: {(selectedCard || {}).modified}</p>
         </li>
 
-        <p className="selectedNote-content">{selectedCard.content}</p>
+        <p className="selectedNote-content">{(selectedCard || {}).content}</p>
       </>
     );
 
@@ -74,7 +77,7 @@ export default class SpecificNote extends React.Component {
 
         <div className="selectedNote-sidebar">
           <button onClick={() => this.props.history.goBack()}>Go Back</button>
-          <h1>{selectedCardFolderId.name}</h1>
+          <h1>{(selectedCardFolderId || {}).name}</h1>
         </div>
       </>
     );
