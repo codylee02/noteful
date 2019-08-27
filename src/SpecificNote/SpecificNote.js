@@ -42,8 +42,8 @@ export default class SpecificNote extends React.Component {
 
     const note = (
       <>
-        <li key={selectedCard.id} className="selectedNote">
-          <h2>{selectedCard.name}</h2>
+        <li key={(selectedCard || {}).id} className="selectedNote">
+          <h2>{(selectedCard || {}).name}</h2>
 
           <button
             className="delete-button"
@@ -53,22 +53,22 @@ export default class SpecificNote extends React.Component {
           >
             Delete Note
           </button>
-          <p>Date Modified: {selectedCard.modified}</p>
+          <p>Date Modified: {(selectedCard || {}).modified}</p>
         </li>
 
-        <p className="selectedNote-content">{selectedCard.content}</p>
+        <p className="selectedNote-content">{(selectedCard || {}).content}</p>
       </>
     );
-
+console.log(selectedCardId)
     return (
       <>
         <section className="note">
-          <ul>{note}</ul>
+          <ul>{note || {}}</ul>
         </section>
 
         <div className="selectedNote-sidebar">
           <button onClick={() => this.props.history.goBack()}>Go Back</button>
-          <h1>{selectedCardFolderId.name}</h1>
+          <h1>{(selectedCardFolderId || {}).name}</h1>
         </div>
       </>
     );
