@@ -50,9 +50,11 @@ export default class Notes extends React.Component {
       <section className="note-list">
         <ul>
           {notes}
-          <button>
-            <Link to={"/new-note"}>Add Note</Link>
-          </button>
+          <li>
+            <button>
+              <Link to={"/new-note"}>Add Note</Link>
+            </button>
+          </li>
         </ul>
       </section>
     );
