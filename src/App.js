@@ -9,6 +9,7 @@ import AddFolder from "./AddFolder/AddFolder";
 import AddNote from "./AddNote/AddNote";
 import NotefulContext from "./NotefulContext";
 import NotefulError from "./NotefulError/NotefulError";
+import config from "./config";
 
 import { Route } from "react-router-dom";
 
@@ -20,9 +21,9 @@ export default class App extends React.Component {
     }
   };
 
-  deleteNote = noteId => {
+  deleteNote = note_id => {
     const newNotes = this.state.noteStore.notes.filter(
-      note => note.id !== noteId
+      note => note.id !== note_id
     );
     const sameFolders = this.state.noteStore.folders;
 
@@ -54,8 +55,20 @@ export default class App extends React.Component {
 
   componentDidMount() {
     Promise.all([
-      fetch("http://localhost:9090/folders"),
-      fetch("http://localhost:9090/notes")
+      fetch(`${config.API_ENDPOINT}/folders`, {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${config.API_KEY}`
+        }
+      }),
+      fetch(`${config.API_ENDPOINT}/notes`, {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${config.API_KEY}`
+        }
+      })
     ])
       .then(([folderRes, notesRes]) => {
         if (!folderRes.ok) {
@@ -87,10 +100,10 @@ export default class App extends React.Component {
             <Route exact path="/" component={Notes} />
             <Route path="/folders" component={Folders} />
             <NotefulError>
-              <Route path="/folders/:folderId" component={NavNotes} />
+              <Route path="/folders/:folder_id" component={NavNotes} />
             </NotefulError>
             <NotefulError>
-              <Route path="/note/:cardId" component={SpecificNote} />
+              <Route path="/notes/:note_id" component={SpecificNote} />
             </NotefulError>
             <Route exact path="/new-folder" component={AddFolder} />
             <Route exact path="/new-note" component={AddNote} />

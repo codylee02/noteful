@@ -1,5 +1,6 @@
 import React from "react";
 import "./SpecificNote.css";
+import config from "../config";
 
 import NotefulContext from "../NotefulContext";
 
@@ -7,10 +8,11 @@ export default class SpecificNote extends React.Component {
   static contextType = NotefulContext;
 
   handleClickDelete = (cardId, callback) => {
-    fetch(`http://localhost:9090/notes/${cardId}`, {
+    fetch(`${config.API_ENDPOINT}/notes/${cardId}`, {
       method: "DELETE",
       header: {
-        "content-type": "application/json"
+        "content-type": "application/json",
+        Authorization: `Bearer ${config.API_KEY}`
       }
     })
       .then(res => {
@@ -31,21 +33,19 @@ export default class SpecificNote extends React.Component {
 
   render() {
     const selectedCardId = this.props.match
-      ? this.props.match.params.cardId
+      ? this.props.match.params.note_id
       : "";
     const selectedCard = this.context.noteStore.notes
-      ? this.context.noteStore.notes.find(note => note.id === selectedCardId)
+      ? this.context.noteStore.notes.find(
+          note => note.id === Number(selectedCardId)
+        )
       : "";
 
     const selectedCardFolderId = this.context.noteStore.folders
       ? this.context.noteStore.folders.find(
-          folder => folder.id === selectedCard.folderId
+          folder => folder.id === selectedCard.folder_id
         )
       : "";
-
-    console.log("selectedCardId", selectedCardId)
-    console.log("selectedCard", selectedCard)
-    console.log("selectedCardFolderId", selectedCardFolderId)
 
     const note = (
       <>
@@ -66,8 +66,6 @@ export default class SpecificNote extends React.Component {
         <p className="selectedNote-content">{(selectedCard || {}).content}</p>
       </>
     );
-
-    
 
     return (
       <>

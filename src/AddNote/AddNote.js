@@ -1,6 +1,7 @@
 import React from "react";
 import ValidationError from "../ValidationError/ValidationError";
 import NotefulContext from "../NotefulContext";
+import config from "../config";
 
 export default class AddNote extends React.Component {
   static contextType = NotefulContext;
@@ -21,15 +22,16 @@ export default class AddNote extends React.Component {
       id: Math.floor(Math.random() * (999999999999 - 1) + 1).toString(),
       name: this.state.name,
       modified: new Date().toISOString(),
-      folderId: this.state.folderId,
+      folder_id: this.state.folderId,
       content: this.state.content
     };
 
-    fetch(`http://localhost:9090/notes/`, {
+    fetch(`${config.API_ENDPOINT}/notes/`, {
       method: "POST",
       body: JSON.stringify(note),
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
+        Authorization: `Bearer ${config.API_KEY}`
       }
     })
       .then(res => {

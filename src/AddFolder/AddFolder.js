@@ -1,6 +1,7 @@
 import React from "react";
 import ValidationError from "../ValidationError/ValidationError";
 import NotefulContext from "../NotefulContext";
+import config from "../config";
 
 export default class AddFolder extends React.Component {
   static contextType = NotefulContext;
@@ -35,11 +36,12 @@ export default class AddFolder extends React.Component {
       id: this.state.newFolder,
       name: this.state.newFolder
     };
-    fetch(`http://localhost:9090/folders/`, {
+    fetch(`${config.API_ENDPOINT}/folders/`, {
       method: "POST",
       body: JSON.stringify(newFolder),
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
+        Authorization: `Bearer ${config.API_KEY}`
       }
     })
       .then(res => {

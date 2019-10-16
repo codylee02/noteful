@@ -2,14 +2,16 @@ import React from "react";
 import "./Notes.css";
 import { Link } from "react-router-dom";
 import NotefulContext from "../NotefulContext";
+import config from "../config";
 
 export default class Notes extends React.Component {
   static contextType = NotefulContext;
   handleClickDelete = (cardId, callback) => {
-    fetch(`http://localhost:9090/notes/${cardId}`, {
+    fetch(`${config.API_ENDPOINT}/notes/${cardId}`, {
       method: "DELETE",
       header: {
-        "content-type": "application/json"
+        "content-type": "application/json",
+        Authorization: `Bearer ${config.API_KEY}`
       }
     })
       .then(res => {
@@ -29,7 +31,7 @@ export default class Notes extends React.Component {
       ? this.context.noteStore.notes.map(card => {
           return (
             <li key={card.id}>
-              <Link to={`/note/${card.id}`}>
+              <Link to={`/notes/${card.id}`}>
                 <h2>{card.name}</h2>
               </Link>
               <button
