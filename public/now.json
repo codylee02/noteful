@@ -1,7 +1,7 @@
 {
     "version": 2,
-    "alias": "my-bookmarks-app",
-    "name": "bookmarks-app",
+    "alias": "condylee02s-noteful-app",
+    "name": "noteful-app",
     "routes": [
       {
         "src": "^/static/(.*)",
