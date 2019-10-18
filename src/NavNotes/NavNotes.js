@@ -8,7 +8,7 @@ export default class NavNotes extends React.Component {
   static contextType = NotefulContext;
 
   handleClickDelete = (cardId, callback) => {
-    fetch(`${config.API_ENDPOINT}/${cardId}`, {
+    fetch(`${config.API_ENDPOINT}/notes/${cardId}`, {
       method: "DELETE",
       header: {
         "content-type": "application/json",
