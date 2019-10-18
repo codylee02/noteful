@@ -100,7 +100,7 @@ export default class App extends React.Component {
             <Route exact path="/" component={Notes} />
             <Route path="/folders" component={Folders} />
             <NotefulError>
-              <Route path="/folders/:folder_id" component={NavNotes} />
+              <Route exact path="/folders/:folder_id" component={NavNotes} />
             </NotefulError>
             <NotefulError>
               <Route path="/notes/:note_id" component={SpecificNote} />

@@ -11,12 +11,13 @@ export default class NavNotes extends React.Component {
     fetch(`${config.API_ENDPOINT}/${cardId}`, {
       method: "DELETE",
       header: {
-        "content-type": "application/json"
+        "content-type": "application/json",
+        Authorization: `Bearer ${config.API_KEY}`
       }
     })
       .then(res => {
         if (!res.ok) return res.json().then(e => Promise.reject(e));
-        return res.json();
+        return;
       })
       .then(() => {
         this.context.deleteNote(cardId);
@@ -29,7 +30,7 @@ export default class NavNotes extends React.Component {
   render() {
     const foundCards = this.context.noteStore.notes
       ? this.context.noteStore.notes.filter(
-          note => note.folderId === this.props.match.params.folderId
+          note => note.folder_id === Number(this.props.match.params.folder_id)
         )
       : "";
 
